@@ -95,14 +95,14 @@ INNER JOIN software_houses on videogames.software_house_id = software_houses.id;
 
 6- Selezionare categorie e classificazioni PEGI dei videogiochi che hanno ricevuto recensioni da 4 e 5 stelle, mostrandole una sola volta (3363)
 SELECT DISTINCT
-*
-FROM `categories`
-INNER JOIN category_videogame ON category_videogame.category_id = categories.id
-INNER JOIN videogames ON vdeogames.id = category_videogame.videogame_id
-INNER JOIN pegi_label_videogame ON pegi_label_videogame.videogame_id = videogames.id
-INNER JOIN pegi_labels ON pegi_labels.id = pegi_label_videogame.pegi_label_id
-INNER JOIN reviews ON videogames.id = reviews.videogame_id
-WHERE reviews.rating >= 4;
+select distinct categories.name, pegi_labels.name, videogames.name
+from categories 
+join category_videogame on categories.id = category_videogame.category_id
+join videogames on v.id = category_videogame.videogame_id
+join pegi_label_videogame pegi_label_videogame on videogames.id = pegi_label_videogame.videogame_id
+join pegi_labels pegi_labels on pegi_labels.id = pegi_label_videogame.pegi_label_id 
+join reviews reviews on v.id = reviews.videogame_id 
+where reviews.rating >= 4 and reviews.rating <= 5;
 
 7- Selezionare quali giochi erano presenti nei tornei nei quali hanno partecipato i giocatori il cui nome inizia per 'S' (474)
 SELECT * FROM `videogames` 
